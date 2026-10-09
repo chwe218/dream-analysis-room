@@ -1,0 +1,14 @@
+# Secrets - never commit API keys
+.streamlit/secrets.toml
+config.toml
+.env
+
+# Personal data and temp files created by the app
+dream_log.csv
+temp.wav
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/

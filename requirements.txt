@@ -1,0 +1,11 @@
+streamlit>=1.39
+pandas
+matplotlib
+plotly
+wordcloud
+langchain-core
+langchain-community
+pyjwt
+httpx-sse
+openai-whisper
+opencc-python-reimplemented
