@@ -1,97 +1,75 @@
 # Dream Analysis Room 🌙
 
-A personalized, AI-powered dream interpretation assistant built with **Streamlit**, **LangChain**, and **ZhipuAI**. It helps you record, analyze, and gain deep psychological insights from your dreams.
+A Chinese-language dream journal built with **Streamlit**, **LangChain** and **GLM-4-Flash**. Speak your dream, get a structured AI analysis, and track your moods over time.
 
-## ✨ Features
-- **Voice-to-Text**: Effortlessly record your dreams using your microphone (powered by OpenAI Whisper).
-- **AI Psychological Analysis**: Get 4-dimensional insights into your dreams, including emotional themes and subconscious symbolism.
-- **Streaming Response**: Experience real-time AI responses with an elegant "typewriter" effect.
-- **Historical Archive**: Save and manage your dream history in a local database.
-- **Emotional Insights**: Visualize your emotional trends with interactive charts and word clouds.
-- **Interactive Dialogue**: Chat with your AI mentor to explore the hidden meaning behind your dreams.
+> **Status:** early-stage learning project. I built it to practise connecting speech recognition, an LLM and data visualisation in one app.
 
-## 🛠 Tech Stack
-- **Frontend**: Streamlit
-- **Language**: Python
-- **AI Model**: GLM-4-Flash (via ZhipuAI)
-- **Transcription**: Whisper (OpenAI)
-- **Data Analysis**: Pandas, Plotly, WordCloud
+## Features
 
-## 🚀 Getting Started
+- **Voice input:** record a dream with your microphone; it is transcribed locally with OpenAI's open-source Whisper model (`base`, Chinese).
+- **AI analysis:** GLM-4-Flash (via LangChain) streams a four-part analysis (emotion, imagery, subconscious message, advice) and a mood tag.
+- **Follow-up chat:** ask the AI mentor more questions about the dream.
+- **Dream archive:** save each dream with a mood score to a local CSV file (`dream_log.csv`).
+- **Insights:** mood-trend chart, mood-tag pie chart (Plotly) and a word cloud of recurring themes.
 
-### Prerequisites
+## Tech stack
+
+Python · Streamlit · LangChain (`langchain-community`, `ChatZhipuAI`) · GLM-4-Flash (ZhipuAI) · OpenAI Whisper (local) · Pandas · Plotly · Matplotlib · WordCloud · OpenCC
+
+## Getting started
+
+**Prerequisites**
+
 - Python 3.9+
-- [ZhipuAI API Key](https://open.bigmodel.cn/)
+- [ffmpeg](https://ffmpeg.org/download.html) installed (required by Whisper)
+- A [ZhipuAI API key](https://open.bigmodel.cn/)
 
-### Configuration
+**Install**
 
-Before running the application, you need to set up your API keys in a TOML configuration file:
+```bash
+git clone https://github.com/chwe218/dream-analysis-room.git
+cd dream-analysis-room
+pip install -r requirements.txt
+```
 
-1. Create a `config.toml` file in the project root directory:
-   ```bash
-   touch config.toml
-   ```
+**Add your API key**
 
-2. Add your API keys to `config.toml`:
-   ```toml
-   [api]
-   zhipuai_key = "your-zhipuai-api-key-here"
-   openai_key = "your-openai-api-key-here"
-   ```
+Create `.streamlit/secrets.toml` in the project folder:
 
-3. **IMPORTANT**: Add `config.toml` to `.gitignore` to protect your credentials:
-   ```bash
-   echo "config.toml" >> .gitignore
-   ```
+```toml
+ZHIPUAI_API_KEY = "your-zhipuai-api-key-here"
+```
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/chwe218/dream-analysis-room.git
-   cd dream-analysis-room
-   ```
+This file is listed in `.gitignore` so your key is never committed.
 
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+**Run**
 
-3. Set up your configuration file (see [Configuration](#configuration) section above)
+```bash
+streamlit run app.py
+```
 
-4. Run the application:
-   ```bash
-   streamlit run app.py
-   ```
+The app opens at `http://localhost:8501`.
 
-The app will open in your browser at `http://localhost:8501`
+## Usage
 
-## 📝 Usage
+1. **Record** a dream with the microphone and edit the transcript if needed.
+2. **Analyse** it and read the streamed result.
+3. **Ask** follow-up questions in the chat.
+4. **Archive** the dream with a mood score, then open the archive tab to see your trends.
 
-1. **Record a Dream**: Click the microphone button and speak your dream
-2. **Analyze**: Let the AI analyze your dream with psychological insights
-3. **Explore**: Chat with the AI mentor to dig deeper into the meanings
-4. **Track**: View your dream history and emotional trends over time
+## Known limitations
 
-## ⚠️ Troubleshooting
+- The word cloud uses a Windows font path (`C:\Windows\Fonts\msyh.ttc`). On macOS or Linux, change this path to a Chinese-capable font on your system.
+- The archive tab reads `dream_log.csv`, which is created when you archive your first dream. Archive one dream before opening it.
+- The interface and prompts are in Chinese.
 
-**"API Key not found" error**: 
-- Make sure your `config.toml` file exists in the project root
-- Verify your API keys are correctly set in `config.toml`
-- Check that you haven't accidentally committed `config.toml` to git
+## Possible next steps
 
-**"Whisper Error"**:
-- Ensure you have a valid OpenAI API key in `config.toml`
-- Check your microphone permissions
+- Cross-platform font handling
+- Replace the CSV with a small database
+- Input validation and error handling
+- Automated tests
 
-## 🤝 Contributing
+## Acknowledgments
 
-Contributions are welcome! Feel free to open issues or submit pull requests.
-
-## 📄 License
-
-This project is licensed under the MIT License - see LICENSE file for details.
-
-## 🌟 Acknowledgments
-
-- Powered by [ZhipuAI](https://open.bigmodel.cn/) and [OpenAI](https://openai.com/)
-- Built with [Streamlit](https://streamlit.io/) and [LangChain](https://langchain.com/)
+Built with [Streamlit](https://streamlit.io/), [LangChain](https://langchain.com/), [ZhipuAI](https://open.bigmodel.cn/) and [OpenAI Whisper](https://github.com/openai/whisper).
